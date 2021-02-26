@@ -30,8 +30,8 @@ class Checker
         }
     }
     static int Main() {
-        ExpectTrue(vitalsAreOk(25, 70, 0.7));
-        ExpectFalse(vitalsAreOk(50, 85, 0));
+        ExpectTrue(batteryIsOk(25, 70, 0.7));
+        ExpectFalse(batteryIsOk(50, 85, 0));
         Console.WriteLine("All ok");
         return 0;
     }
