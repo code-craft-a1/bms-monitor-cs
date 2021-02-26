@@ -1,11 +1,6 @@
-name: Vitals Checker
+name: Build Run
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
+on: [push, pull_request]
 
 jobs:
 
@@ -27,6 +22,9 @@ jobs:
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@2008f912f56e61277eefaac6d1888b750582aa16
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+
 
     # Restore paages, MSBUild the app, run the app
     - name: Build the App
