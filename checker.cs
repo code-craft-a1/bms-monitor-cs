@@ -3,16 +3,20 @@ using System.Diagnostics;
 
 class Checker
 {
-    static bool vitalsAreOk(float bpm, float spo2, float respRate) {
-        if(bpm < 70 || bpm > 150) {
+    static bool batteryIsOk(float temperature, float soc, float chargeRate) {
+        if(temperature < 0 || temperature > 45) {
+            Console.WriteLine("Temperature is out of range!")
             return false;
-        } else if(spo2 < 90) {
+        } else if(soc < 20 || soc > 80) {
+            Console.WriteLine("State of Charge is out of range!")
             return false;
-        } else if(respRate < 30 || respRate > 95) {
+        } else if(chargeRate > 0.8) {
+            Console.WriteLine("Charge Rate is out of range!")
             return false;
         }
         return true;
     }
+
     static void ExpectTrue(bool expression) {
         if(!expression) {
             Console.WriteLine("Expected true, but got false");
@@ -26,8 +30,8 @@ class Checker
         }
     }
     static int Main() {
-        ExpectTrue(vitalsAreOk(100, 95, 60));
-        ExpectFalse(vitalsAreOk(40, 91, 92));
+        ExpectTrue(vitalsAreOk(25, 70, 0.7));
+        ExpectFalse(vitalsAreOk(50, 85, 0));
         Console.WriteLine("All ok");
         return 0;
     }
