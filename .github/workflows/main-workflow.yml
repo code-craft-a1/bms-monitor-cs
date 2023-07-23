@@ -2,6 +2,9 @@ name: Build Run
 
 on: [push, pull_request]
 
+env:
+  DOTNET_VERSION: '6.0.401'
+
 jobs:
 
   build:
@@ -14,24 +17,15 @@ jobs:
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v3
       with:
-        fetch-depth: 0
-
-    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@2008f912f56e61277eefaac6d1888b750582aa16
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-
-
-    # Restore paages, MSBUild the app, run the app
-    - name: Build the App
-      shell: cmd
-      run: call build.bat 
-
-    # Run the app
-    - name: Run the App
-      shell: cmd
-      run: call run.bat
+        dotnet-version: '6.0.x'
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build
+    - name: Test with the dotnet CLI
+      run: dotnet test
+      
