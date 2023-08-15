@@ -64,7 +64,7 @@ class Checker
     }
     static int Main()
     {
-        ExpectFalse(VitalsOK(99f, 102, 17));
+        ExpectFalse(VitalsOK(99f, 102, 70));
         ExpectTrue(VitalsOK(98.1f, 70, 98));
         Console.WriteLine("Done");
         return 0;
