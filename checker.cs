@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 class Checker
 {
-    static bool VitalsOK(float temperature, int pulseRate, int spo2)
+    public static bool VitalsOk(float temperature, int pulseRate, int spo2)
     {
         if(temperature >102 || temperature < 95)
         {
@@ -44,29 +44,5 @@ class Checker
         Console.WriteLine("Vitals received within normal range");
         Console.WriteLine("Temperature: {0} Pulse: {1}, SO2: {2}", temperature, pulseRate, spo2);
         return true;
-    }
-
-    static void ExpectTrue(bool expression)
-    {
-        if (!expression)
-        {
-            Console.WriteLine("Expected true, but got false");
-            Environment.Exit(1);
-        }
-    }
-    static void ExpectFalse(bool expression)
-    {
-        if (expression)
-        {
-            Console.WriteLine("Expected false, but got true");
-            Environment.Exit(1);
-        }
-    }
-    static int Main()
-    {
-        ExpectFalse(VitalsOK(99f, 102, 70));
-        ExpectTrue(VitalsOK(98.1f, 70, 98));
-        Console.WriteLine("Done");
-        return 0;
     }
 }
